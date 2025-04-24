@@ -1,607 +1,519 @@
-@prefix rembi: <http://example.org/rembi#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rembi: <http://www.ebi.ac.uk/bioimage-archive/rembi-model#> .
 
-################################################################################
-# Ontology declaration
-################################################################################
+# Ontology metadata
+<http://www.ebi.ac.uk/bioimage-archive/rembi-model> a owl:Ontology ;
+    rdfs:comment "OWL ontology representing the REMBI model reference version 1.5." .
 
-rembi: a owl:Ontology .
-
-################################################################################
+#####################
 # Classes
-################################################################################
+#####################
 
-# Top‐level REMBI submission container
-rembi:REMBIStudy
-    a           owl:Class ;
-    rdfs:label  "REMBIStudy" .
+rembi:REMBIStudy a owl:Class ;
+    rdfs:label "REMBIStudy" ;
+    rdfs:comment "Root class representing a REMBI submission, encapsulating study‐level metadata." .
 
-# General study information
-rembi:Study
-    a           owl:Class ;
-    rdfs:label  "Study" ;
+rembi:Study a owl:Class ;
+    rdfs:label "Study" ;
     rdfs:comment "General study information." .
 
-rembi:Author
-    a           owl:Class ;
-    rdfs:label  "Author" .
+rembi:Author a owl:Class ;
+    rdfs:label "Author" ;
+    rdfs:comment "Information about an author." .
 
-rembi:OrganisationURL
-    a           owl:Class ;
-    rdfs:label  "OrganisationURL" .
+rembi:OrganisationURL a owl:Class ;
+    rdfs:label "OrganisationURL" ;
+    rdfs:comment "URL to a public registry containing organisation information." .
 
-rembi:OrganisationInfo
-    a           owl:Class ;
-    rdfs:label  "OrganisationInfo" .
+rembi:OrganisationInfo a owl:Class ;
+    rdfs:label "OrganisationInfo" ;
+    rdfs:comment "Information about an organisation." .
 
-# The license under which the data are available.
-rembi:License
-    a           owl:Class ;
-    rdfs:label  "License" ;
+rembi:License a owl:Class ;
+    rdfs:label "License" ;
     rdfs:comment "The license under which the data are available." .
 
-rembi:Funding
-    a           owl:Class ;
-    rdfs:label  "Funding" .
+rembi:Funding a owl:Class ;
+    rdfs:label "Funding" ;
+    rdfs:comment "Information about study funding." .
 
-rembi:GrantReference
-    a           owl:Class ;
-    rdfs:label  "GrantReference" .
+rembi:GrantReference a owl:Class ;
+    rdfs:label "GrantReference" ;
+    rdfs:comment "Identifier and provider of a grant." .
 
-rembi:Publication
-    a           owl:Class ;
-    rdfs:label  "Publication" .
+rembi:Publication a owl:Class ;
+    rdfs:label "Publication" ;
+    rdfs:comment "Associated publication for the dataset." .
 
-rembi:Link
-    a           owl:Class ;
-    rdfs:label  "Link" .
+rembi:Link a owl:Class ;
+    rdfs:label "Link" ;
+    rdfs:comment "A hyperlink relevant to the dataset." .
 
-rembi:StudyComponent
-    a           owl:Class ;
-    rdfs:label  "StudyComponent" .
+rembi:StudyComponent a owl:Class ;
+    rdfs:label "StudyComponent" ;
+    rdfs:comment "Component or sub‐experiment within the study." .
 
-rembi:Biosample
-    a           owl:Class ;
-    rdfs:label  "Biosample" .
+rembi:Biosample a owl:Class ;
+    rdfs:label "Biosample" ;
+    rdfs:comment "Biological sample information." .
 
-# Species.
-rembi:Organism
-    a           owl:Class ;
-    rdfs:label  "Organism" ;
-    rdfs:comment "Species." .
+rembi:Organism a owl:Class ;
+    rdfs:label "Organism" ;
+    rdfs:comment "Taxonomic information about the organism." .
 
-# How the sample was grown or cultured and prepared for imaging.
-rembi:Specimen
-    a           owl:Class ;
-    rdfs:label  "Specimen" ;
-    rdfs:comment "How the sample was grown or cultured and prepared for imaging." .
+rembi:Specimen a owl:Class ;
+    rdfs:label "Specimen" ;
+    rdfs:comment "Preparation details of the biosample." .
 
-rembi:ImageAcquisition
-    a           owl:Class ;
-    rdfs:label  "ImageAcquisition" .
+rembi:ImageAcquisition a owl:Class ;
+    rdfs:label "ImageAcquisition" ;
+    rdfs:comment "Details of how images were acquired." .
 
-# What method was used to capture images.
-rembi:ImagingMethod
-    a           owl:Class ;
-    rdfs:label  "ImagingMethod" ;
-    rdfs:comment "What method was used to capture images." .
+rembi:ImagingMethod a owl:Class ;
+    rdfs:label "ImagingMethod" ;
+    rdfs:comment "Controlled‐vocabulary entry describing the imaging method." .
 
-# How images from the same correlative study are linked
-rembi:ImageCorrelation
-    a           owl:Class ;
-    rdfs:label  "ImageCorrelation" ;
-    rdfs:comment "How images from the same correlative study are linked." .
+rembi:ImageCorrelation a owl:Class ;
+    rdfs:label "ImageCorrelation" ;
+    rdfs:comment "Information on how images from different modalities are co‐registered." .
 
-rembi:ImageAnalysis
-    a           owl:Class ;
-    rdfs:label  "ImageAnalysis" .
+rembi:ImageAnalysis a owl:Class ;
+    rdfs:label "ImageAnalysis" ;
+    rdfs:comment "Details of image analysis workflows applied." .
 
-# A set of annotations for an AI‐ready dataset
-rembi:Annotations
-    a           owl:Class ;
-    rdfs:label  "Annotations" ;
-    rdfs:comment "A set of annotations for an AI‐ready dataset." .
+rembi:Annotations a owl:Class ;
+    rdfs:label "Annotations" ;
+    rdfs:comment "AI‐ready annotations for the dataset." .
 
-# Stub class for annotation types (no further details provided)
-rembi:AnnotationType
-    a           owl:Class ;
-    rdfs:label  "AnnotationType" .
+rembi:AnnotationType a owl:Class ;
+    rdfs:label "AnnotationType" ;
+    rdfs:comment "Classification of annotation (e.g. segmentation, bounding‐box)." .
 
-# Metadata attributes that must be detailed at the file level
-rembi:FileLevelMetadata
-    a           owl:Class ;
-    rdfs:label  "FileLevelMetadata" ;
+rembi:FileLevelMetadata a owl:Class ;
+    rdfs:label "FileLevelMetadata" ;
     rdfs:comment "Metadata attributes that must be detailed at the file level." .
 
-################################################################################
+#####################
 # Object Properties (associations)
-################################################################################
+#####################
 
-# REMBIStudy → Study
-rembi:study
-    a           owl:ObjectProperty ;
-    rdfs:label  "study" ;
+rembi:study a owl:ObjectProperty ;
+    rdfs:label "study" ;
+    rdfs:comment "Link from REMBIStudy to its Study entry." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:Study .
 
-# REMBIStudy → StudyComponent
-rembi:study_components
-    a           owl:ObjectProperty ;
-    rdfs:label  "study components" ;
+rembi:study_components a owl:ObjectProperty ;
+    rdfs:label "study_components" ;
+    rdfs:comment "Link from REMBIStudy to its StudyComponent entries." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:StudyComponent .
 
-# REMBIStudy → Biosample
-rembi:sample
-    a           owl:ObjectProperty ;
-    rdfs:label  "sample" ;
+rembi:sample a owl:ObjectProperty ;
+    rdfs:label "sample" ;
+    rdfs:comment "Link from REMBIStudy to its Biosample entries." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:Biosample .
 
-# REMBIStudy → Specimen
-rembi:specimen
-    a           owl:ObjectProperty ;
-    rdfs:label  "specimen" ;
+rembi:specimen a owl:ObjectProperty ;
+    rdfs:label "specimen" ;
+    rdfs:comment "Link from REMBIStudy to its Specimen entries." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:Specimen .
 
-# REMBIStudy → ImageAcquisition
-rembi:image_acquisition
-    a           owl:ObjectProperty ;
-    rdfs:label  "image acquisition" ;
+rembi:image_acquisition a owl:ObjectProperty ;
+    rdfs:label "image_acquisition" ;
+    rdfs:comment "Link from REMBIStudy to its ImageAcquisition entries." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:ImageAcquisition .
 
-# REMBIStudy → ImageCorrelation
-rembi:image_correlation
-    a           owl:ObjectProperty ;
-    rdfs:label  "image correlation" ;
+rembi:image_correlation a owl:ObjectProperty ;
+    rdfs:label "image_correlation" ;
+    rdfs:comment "Link from REMBIStudy to its ImageCorrelation details." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:ImageCorrelation .
 
-# REMBIStudy → ImageAnalysis
-rembi:image_analysis
-    a           owl:ObjectProperty ;
-    rdfs:label  "image analysis" ;
+rembi:image_analysis a owl:ObjectProperty ;
+    rdfs:label "image_analysis" ;
+    rdfs:comment "Link from REMBIStudy to its ImageAnalysis details." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:ImageAnalysis .
 
-# REMBIStudy → Annotations
-rembi:annotations
-    a           owl:ObjectProperty ;
-    rdfs:label  "annotations" ;
+rembi:annotations a owl:ObjectProperty ;
+    rdfs:label "annotations" ;
+    rdfs:comment "Link from REMBIStudy to its Annotations block." ;
     rdfs:domain rembi:REMBIStudy ;
     rdfs:range  rembi:Annotations .
 
-# Study → Author
-rembi:authors
-    a           owl:ObjectProperty ;
-    rdfs:label  "authors" ;
-    rdfs:domain rembi:Study ;
+rembi:authors a owl:ObjectProperty ;
+    rdfs:label "authors" ;
+    rdfs:comment "Authors of the study or annotation." ;
+    rdfs:domain  rembi:Study , rembi:Annotations ;
     rdfs:range  rembi:Author .
 
-# Study → License
-rembi:license
-    a           owl:ObjectProperty ;
-    rdfs:label  "license" ;
-    rdfs:domain rembi:Study ;
-    rdfs:range  rembi:License .
-
-# Study → Funding
-rembi:funding
-    a           owl:ObjectProperty ;
-    rdfs:label  "funding" ;
-    rdfs:domain rembi:Study ;
-    rdfs:range  rembi:Funding .
-
-# Study → Publication
-rembi:publications
-    a           owl:ObjectProperty ;
-    rdfs:label  "publications" ;
+rembi:publications a owl:ObjectProperty ;
+    rdfs:label "publications" ;
+    rdfs:comment "Associated Publication entries for the Study." ;
     rdfs:domain rembi:Study ;
     rdfs:range  rembi:Publication .
 
-# Study → Link
-rembi:links
-    a           owl:ObjectProperty ;
-    rdfs:label  "links" ;
+rembi:links a owl:ObjectProperty ;
+    rdfs:label "links" ;
+    rdfs:comment "Associated Link entries for the Study." ;
     rdfs:domain rembi:Study ;
     rdfs:range  rembi:Link .
 
-# Funding → GrantReference
-rembi:grant_references
-    a           owl:ObjectProperty ;
-    rdfs:label  "grant references" ;
+rembi:licensing a owl:ObjectProperty ;
+    rdfs:label "license" ;
+    rdfs:comment "License under which the Study data are released." ;
+    rdfs:domain rembi:Study ;
+    rdfs:range  rembi:License .
+
+rembi:funding a owl:ObjectProperty ;
+    rdfs:label "funding" ;
+    rdfs:comment "Funding details for the Study." ;
+    rdfs:domain rembi:Study ;
+    rdfs:range  rembi:Funding .
+
+rembi:grant_references a owl:ObjectProperty ;
+    rdfs:label "grant_references" ;
+    rdfs:comment "References to grants supporting the funding." ;
     rdfs:domain rembi:Funding ;
     rdfs:range  rembi:GrantReference .
 
-# Biosample → Organism
-rembi:organism
-    a           owl:ObjectProperty ;
-    rdfs:label  "organism" ;
-    rdfs:domain rembi:Biosample ;
-    rdfs:range  rembi:Organism .
+rembi:hasPublicationAuthors a owl:DatatypeProperty ;
+    rdfs:label "authors" ;
+    rdfs:comment "Authors of the Publication (free text)." ;
+    rdfs:domain rembi:Publication ;
+    rdfs:range  xsd:string .
 
-# ImageAcquisition → ImagingMethod
-rembi:imaging_method
-    a           owl:ObjectProperty ;
-    rdfs:label  "imaging method" ;
-    rdfs:domain rembi:ImageAcquisition ;
-    rdfs:range  rembi:ImagingMethod .
-
-# Annotations → Author
-rembi:annotation_authors
-    a           owl:ObjectProperty ;
-    rdfs:label  "authors" ;
-    rdfs:domain rembi:Annotations ;
-    rdfs:range  rembi:Author .
-
-# Annotations → FileLevelMetadata
-rembi:file_metadata
-    a           owl:ObjectProperty ;
-    rdfs:label  "file metadata" ;
-    rdfs:domain rembi:Annotations ;
-    rdfs:range  rembi:FileLevelMetadata .
-
-# Annotations → AnnotationType
-rembi:annotation_type
-    a           owl:ObjectProperty ;
-    rdfs:label  "annotation type" ;
+rembi:hasAnnotationType a owl:ObjectProperty ;
+    rdfs:label "annotation_type" ;
+    rdfs:comment "Type(s) of annotation (e.g. segmentation)." ;
     rdfs:domain rembi:Annotations , rembi:FileLevelMetadata ;
     rdfs:range  rembi:AnnotationType .
 
-################################################################################
+rembi:file_metadata a owl:ObjectProperty ;
+    rdfs:label "file_metadata" ;
+    rdfs:comment "FileLevelMetadata entries under Annotations." ;
+    rdfs:domain rembi:Annotations ;
+    rdfs:range  rembi:FileLevelMetadata .
+
+#####################
 # Datatype Properties (attributes)
-################################################################################
+#####################
 
-# Study.title
-rembi:title
-    a           owl:DatatypeProperty ;
-    rdfs:label  "title" ;
-    rdfs:comment "The title for your dataset. This will be displayed when search results including your data are shown." ;
-    rdfs:comment "Title of associated publication." ;
+rembi:title a owl:DatatypeProperty ;
+    rdfs:label "title" ;
+    rdfs:comment "The title for your dataset. Displayed in search results, often matches a publication title." ;
+    rdfs:domain rembi:Study ;
     rdfs:range  xsd:string .
 
-# Study.description
-rembi:description
-    a           owl:DatatypeProperty ;
-    rdfs:label  "description" ;
-    rdfs:comment "Use this field to describe your dataset. This can be the abstract to an accompanying publication." ;
+rembi:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:comment "Abstract or description of your dataset." ;
+    rdfs:domain rembi:Study ;
     rdfs:range  xsd:string .
 
-# Study.private_until_date
-rembi:private_until_date
-    a           owl:DatatypeProperty ;
-    rdfs:label  "private until date" ;
+rembi:private_until_date a owl:DatatypeProperty ;
+    rdfs:label "private_until_date" ;
+    rdfs:comment "Date until which the dataset remains private." ;
+    rdfs:domain rembi:Study ;
     rdfs:range  xsd:date .
 
-# Study.keywords
-rembi:keywords
-    a           owl:DatatypeProperty ;
-    rdfs:label  "keywords" ;
+rembi:keywords a owl:DatatypeProperty ;
+    rdfs:label "keywords" ;
+    rdfs:comment "Keywords for search and classification." ;
+    rdfs:domain rembi:Study ;
     rdfs:range  xsd:string .
 
-# Study.acknowledgements
-rembi:acknowledgements
-    a           owl:DatatypeProperty ;
-    rdfs:label  "acknowledgements" ;
+rembi:acknowledgements a owl:DatatypeProperty ;
+    rdfs:label "acknowledgements" ;
+    rdfs:comment "Acknowledgements of people or groups." ;
+    rdfs:domain rembi:Study ;
     rdfs:range  xsd:string .
 
-# Study.rembi_version
-rembi:rembi_version
-    a           owl:DatatypeProperty ;
-    rdfs:label  "rembi version" ;
-    rdfs:comment "Literal value: 1.5" ;
+rembi:rembi_version a owl:DatatypeProperty ;
+    rdfs:label "rembi_version" ;
+    rdfs:comment "Fixed REMBI model version (\"1.5\")." ;
+    rdfs:domain rembi:Study ;
     rdfs:range  xsd:string .
 
-# Author.last_name
-rembi:last_name
-    a           owl:DatatypeProperty ;
-    rdfs:label  "last name" ;
+rembi:last_name a owl:DatatypeProperty ;
+    rdfs:label "last_name" ;
+    rdfs:comment "Author last name." ;
+    rdfs:domain rembi:Author ;
     rdfs:range  xsd:string .
 
-# Author.first_name
-rembi:first_name
-    a           owl:DatatypeProperty ;
-    rdfs:label  "first name" ;
+rembi:first_name a owl:DatatypeProperty ;
+    rdfs:label "first_name" ;
+    rdfs:comment "Author first name." ;
+    rdfs:domain rembi:Author ;
     rdfs:range  xsd:string .
 
-# Author.email
-rembi:email
-    a           owl:DatatypeProperty ;
-    rdfs:label  "email" ;
+rembi:email a owl:DatatypeProperty ;
+    rdfs:label "email" ;
+    rdfs:comment "Author e-mail address." ;
+    rdfs:domain rembi:Author ;
     rdfs:range  xsd:string .
 
-# Author.orcid
-rembi:orcid
-    a           owl:DatatypeProperty ;
-    rdfs:label  "orcid" ;
+rembi:orcid a owl:DatatypeProperty ;
+    rdfs:label "orcid" ;
+    rdfs:comment "Author ORCID identifier." ;
+    rdfs:domain rembi:Author ;
     rdfs:range  xsd:string .
 
-# Author.role
-rembi:role
-    a           owl:DatatypeProperty ;
-    rdfs:label  "role" ;
-    rdfs:range  xsd:string .
+rembi:affiliation a owl:ObjectProperty ;
+    rdfs:label "affiliation" ;
+    rdfs:comment "Affiliation: either an OrganisationURL or an OrganisationInfo." ;
+    rdfs:domain rembi:Author ;
+    rdfs:range  [ a owl:Class ; owl:unionOf ( rembi:OrganisationURL rembi:OrganisationInfo ) ] .
 
-# OrganisationURL.name
-rembi:name
-    a           owl:DatatypeProperty ;
-    rdfs:label  "name" ;
+rembi:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:comment "Name of the organisation." ;
     rdfs:domain rembi:OrganisationURL , rembi:OrganisationInfo ;
     rdfs:range  xsd:string .
 
-# OrganisationURL.url
-rembi:url
-    a           owl:DatatypeProperty ;
-    rdfs:label  "url" ;
+rembi:url a owl:DatatypeProperty ;
+    rdfs:label "url" ;
+    rdfs:comment "URL of the organisation (e.g. ROR entry)." ;
     rdfs:domain rembi:OrganisationURL ;
+    rdfs:range  xsd:anyURI .
+
+rembi:address a owl:DatatypeProperty ;
+    rdfs:label "address" ;
+    rdfs:comment "Postal address of the organisation." ;
+    rdfs:domain rembi:OrganisationInfo ;
     rdfs:range  xsd:string .
 
-# OrganisationInfo.address
-rembi:address
-    a           owl:DatatypeProperty ;
-    rdfs:label  "address" ;
+rembi:funding_statement a owl:DatatypeProperty ;
+    rdfs:label "funding_statement" ;
+    rdfs:comment "Description of how the data generation was funded." ;
+    rdfs:domain rembi:Funding ;
     rdfs:range  xsd:string .
 
-# OrganisationInfo.ror_id
-rembi:ror_id
-    a           owl:DatatypeProperty ;
-    rdfs:label  "ror id" ;
+rembi:identifier a owl:DatatypeProperty ;
+    rdfs:label "identifier" ;
+    rdfs:comment "Identifier for the grant." ;
+    rdfs:domain rembi:GrantReference ;
     rdfs:range  xsd:string .
 
-# Funding.funding_statement
-rembi:funding_statement
-    a           owl:DatatypeProperty ;
-    rdfs:label  "funding statement" ;
+rembi:funder a owl:DatatypeProperty ;
+    rdfs:label "funder" ;
+    rdfs:comment "Funding body providing support." ;
+    rdfs:domain rembi:GrantReference ;
     rdfs:range  xsd:string .
 
-# GrantReference.identifier
-rembi:identifier
-    a           owl:DatatypeProperty ;
-    rdfs:label  "identifier" ;
+rembi:doi a owl:DatatypeProperty ;
+    rdfs:label "doi" ;
+    rdfs:comment "Digital Object Identifier for the publication." ;
+    rdfs:domain rembi:Publication ;
     rdfs:range  xsd:string .
 
-# GrantReference.funder
-rembi:funder
-    a           owl:DatatypeProperty ;
-    rdfs:label  "funder" ;
+rembi:year a owl:DatatypeProperty ;
+    rdfs:label "year" ;
+    rdfs:comment "Year of publication." ;
+    rdfs:domain rembi:Publication ;
     rdfs:range  xsd:string .
 
-# Publication.authors
-rembi:publication_authors
-    a           owl:DatatypeProperty ;
-    rdfs:label  "authors" ;
+rembi:pubmed_id a owl:DatatypeProperty ;
+    rdfs:label "pubmed_id" ;
+    rdfs:comment "PubMed identifier for the publication." ;
+    rdfs:domain rembi:Publication ;
     rdfs:range  xsd:string .
 
-# Publication.doi
-rembi:doi
-    a           owl:DatatypeProperty ;
-    rdfs:label  "doi" ;
+rembi:link_url a owl:DatatypeProperty ;
+    rdfs:label "link_url" ;
+    rdfs:comment "URL of the linked content." ;
+    rdfs:domain rembi:Link ;
+    rdfs:range  xsd:anyURI .
+
+rembi:link_type a owl:DatatypeProperty ;
+    rdfs:label "link_type" ;
+    rdfs:comment "Type of the link (e.g. project website)." ;
+    rdfs:domain rembi:Link ;
     rdfs:range  xsd:string .
 
-# Publication.year
-rembi:year
-    a           owl:DatatypeProperty ;
-    rdfs:label  "year" ;
+rembi:link_description a owl:DatatypeProperty ;
+    rdfs:label "link_description" ;
+    rdfs:comment "Description of the linked content." ;
+    rdfs:domain rembi:Link ;
     rdfs:range  xsd:string .
 
-# Publication.pubmed_id
-rembi:pubmed_id
-    a           owl:DatatypeProperty ;
-    rdfs:label  "pubmed id" ;
+rembi:StudyComponent_name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:comment "Name of the study component." ;
+    rdfs:domain rembi:StudyComponent ;
     rdfs:range  xsd:string .
 
-# Link.link_url
-rembi:link_url
-    a           owl:DatatypeProperty ;
-    rdfs:label  "link url" ;
+rembi:StudyComponent_description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:comment "Description of the study component." ;
+    rdfs:domain rembi:StudyComponent ;
     rdfs:range  xsd:string .
 
-# Link.link_type
-rembi:link_type
-    a           owl:DatatypeProperty ;
-    rdfs:label  "link type" ;
+rembi:StudyComponent_rembi_version a owl:DatatypeProperty ;
+    rdfs:label "rembi_version" ;
+    rdfs:comment "REMBI model version for this component (\"1.5\")." ;
+    rdfs:domain rembi:StudyComponent ;
     rdfs:range  xsd:string .
 
-# Link.link_description
-rembi:link_description
-    a           owl:DatatypeProperty ;
-    rdfs:label  "link description" ;
+rembi:biological_entity a owl:DatatypeProperty ;
+    rdfs:label "biological_entity" ;
+    rdfs:comment "Description of what is being imaged." ;
+    rdfs:domain rembi:Biosample ;
     rdfs:range  xsd:string .
 
-# StudyComponent.name
-rembi:study_component_name
-    a           owl:DatatypeProperty ;
-    rdfs:label  "name" ;
+rembi:description_of_biosample a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:comment "High‐level description of the biosample." ;
+    rdfs:domain rembi:Biosample ;
     rdfs:range  xsd:string .
 
-# StudyComponent.description
-rembi:study_component_description
-    a           owl:DatatypeProperty ;
-    rdfs:label  "description" ;
+rembi:intrinsic_variables a owl:DatatypeProperty ;
+    rdfs:label "intrinsic_variables" ;
+    rdfs:comment "Intrinsic alterations (e.g. genetic)." ;
+    rdfs:domain rembi:Biosample ;
     rdfs:range  xsd:string .
 
-# StudyComponent.rembi_version
-rembi:study_component_rembi_version
-    a           owl:DatatypeProperty ;
-    rdfs:label  "rembi version" ;
-    rdfs:comment "Literal value: 1.5" ;
+rembi:extrinsic_variables a owl:DatatypeProperty ;
+    rdfs:label "extrinsic_variables" ;
+    rdfs:comment "External treatments (e.g. reagents)." ;
+    rdfs:domain rembi:Biosample ;
     rdfs:range  xsd:string .
 
-# Biosample.biological_entity
-rembi:biological_entity
-    a           owl:DatatypeProperty ;
-    rdfs:label  "biological entity" ;
+rembi:experimental_variables a owl:DatatypeProperty ;
+    rdfs:label "experimental_variables" ;
+    rdfs:comment "Variables intentionally varied between images." ;
+    rdfs:domain rembi:Biosample ;
     rdfs:range  xsd:string .
 
-# Biosample.description
-rembi:biosample_description
-    a           owl:DatatypeProperty ;
-    rdfs:label  "description" ;
+rembi:scientific_name a owl:DatatypeProperty ;
+    rdfs:label "scientific_name" ;
+    rdfs:comment "Scientific name of the organism." ;
+    rdfs:domain rembi:Organism ;
     rdfs:range  xsd:string .
 
-# Biosample.intrinsic_variables
-rembi:intrinsic_variables
-    a           owl:DatatypeProperty ;
-    rdfs:label  "intrinsic variables" ;
+rembi:common_name a owl:DatatypeProperty ;
+    rdfs:label "common_name" ;
+    rdfs:comment "Common name of the organism." ;
+    rdfs:domain rembi:Organism ;
     rdfs:range  xsd:string .
 
-# Biosample.extrinsic_variables
-rembi:extrinsic_variables
-    a           owl:DatatypeProperty ;
-    rdfs:label  "extrinsic variables" ;
+rembi:ncbi_taxon a owl:DatatypeProperty ;
+    rdfs:label "ncbi_taxon" ;
+    rdfs:comment "PURL for the NCBI taxonomy entry." ;
+    rdfs:domain rembi:Organism ;
+    rdfs:range  xsd:anyURI .
+
+rembi:sample_preparation a owl:DatatypeProperty ;
+    rdfs:label "sample_preparation" ;
+    rdfs:comment "Protocol for preparing the specimen." ;
+    rdfs:domain rembi:Specimen ;
     rdfs:range  xsd:string .
 
-# Biosample.experimental_variables
-rembi:experimental_variables
-    a           owl:DatatypeProperty ;
-    rdfs:label  "experimental variables" ;
+rembi:growth_protocol a owl:DatatypeProperty ;
+    rdfs:label "growth_protocol" ;
+    rdfs:comment "How the specimen was grown or cultured." ;
+    rdfs:domain rembi:Specimen ;
     rdfs:range  xsd:string .
 
-# Organism.scientific_name
-rembi:scientific_name
-    a           owl:DatatypeProperty ;
-    rdfs:label  "scientific name" ;
+rembi:imaging_instrument a owl:DatatypeProperty ;
+    rdfs:label "imaging_instrument" ;
+    rdfs:comment "Description of the instrument used." ;
+    rdfs:domain rembi:ImageAcquisition ;
     rdfs:range  xsd:string .
 
-# Organism.common_name
-rembi:common_name
-    a           owl:DatatypeProperty ;
-    rdfs:label  "common name" ;
+rembi:image_acquisition_parameters a owl:DatatypeProperty ;
+    rdfs:label "image_acquisition_parameters" ;
+    rdfs:comment "Instrument settings and parameters." ;
+    rdfs:domain rembi:ImageAcquisition ;
     rdfs:range  xsd:string .
 
-# Organism.ncbi_taxon
-rembi:ncbi_taxon
-    a           owl:DatatypeProperty ;
-    rdfs:label  "ncbi taxon" ;
+rembi:analysis_overview a owl:DatatypeProperty ;
+    rdfs:label "analysis_overview" ;
+    rdfs:comment "Overview of the image analysis pipeline." ;
+    rdfs:domain rembi:ImageAnalysis ;
     rdfs:range  xsd:string .
 
-# Specimen.sample_preparation
-rembi:sample_preparation
-    a           owl:DatatypeProperty ;
-    rdfs:label  "sample preparation" ;
+rembi:spatial_and_temporal_alignment a owl:DatatypeProperty ;
+    rdfs:label "spatial_and_temporal_alignment" ;
+    rdfs:comment "Method used to align images from different modalities." ;
+    rdfs:domain rembi:ImageCorrelation ;
     rdfs:range  xsd:string .
 
-# Specimen.growth_protocol
-rembi:growth_protocol
-    a           owl:DatatypeProperty ;
-    rdfs:label  "growth protocol" ;
+rembi:fiducials_used a owl:DatatypeProperty ;
+    rdfs:label "fiducials_used" ;
+    rdfs:comment "Features used for colocalisation." ;
+    rdfs:domain rembi:ImageCorrelation ;
     rdfs:range  xsd:string .
 
-# ImageAcquisition.imaging_instrument
-rembi:imaging_instrument
-    a           owl:DatatypeProperty ;
-    rdfs:label  "imaging instrument" ;
+rembi:transformation_matrix a owl:DatatypeProperty ;
+    rdfs:label "transformation_matrix" ;
+    rdfs:comment "Correlation transforms applied." ;
+    rdfs:domain rembi:ImageCorrelation ;
     rdfs:range  xsd:string .
 
-# ImageAcquisition.image_acquisition_parameters
-rembi:image_acquisition_parameters
-    a           owl:DatatypeProperty ;
-    rdfs:label  "image acquisition parameters" ;
+rembi:annotation_overview a owl:DatatypeProperty ;
+    rdfs:label "annotation_overview" ;
+    rdfs:comment "Overview of the annotation procedure." ;
+    rdfs:domain rembi:Annotations ;
     rdfs:range  xsd:string .
 
-# ImagingMethod.value
-rembi:value
-    a           owl:DatatypeProperty ;
-    rdfs:label  "value" ;
+rembi:annotation_method a owl:DatatypeProperty ;
+    rdfs:label "annotation_method" ;
+    rdfs:comment "Method used for annotation." ;
+    rdfs:domain rembi:Annotations ;
     rdfs:range  xsd:string .
 
-# ImagingMethod.ontology_name
-rembi:ontology_name
-    a           owl:DatatypeProperty ;
-    rdfs:label  "ontology name" ;
+rembi:annotation_criteria a owl:DatatypeProperty ;
+    rdfs:label "annotation_criteria" ;
+    rdfs:comment "Criteria applied during annotation." ;
+    rdfs:domain rembi:Annotations ;
     rdfs:range  xsd:string .
 
-# ImagingMethod.ontology_id
-rembi:ontology_id
-    a           owl:DatatypeProperty ;
-    rdfs:label  "ontology id" ;
+rembi:annotation_coverage a owl:DatatypeProperty ;
+    rdfs:label "annotation_coverage" ;
+    rdfs:comment "Coverage scope of the annotations." ;
+    rdfs:domain rembi:Annotations ;
     rdfs:range  xsd:string .
 
-# ImageCorrelation.spatial_and_temporal_alignment
-rembi:spatial_and_temporal_alignment
-    a           owl:DatatypeProperty ;
-    rdfs:label  "spatial and temporal alignment" ;
+rembi:annotation_confidence_level a owl:DatatypeProperty ;
+    rdfs:label "annotation_confidence_level" ;
+    rdfs:comment "Confidence level of the annotations." ;
+    rdfs:domain rembi:Annotations ;
     rdfs:range  xsd:string .
 
-# ImageCorrelation.fiducials_used
-rembi:fiducials_used
-    a           owl:DatatypeProperty ;
-    rdfs:label  "fiducials used" ;
+rembi:annotation_id a owl:DatatypeProperty ;
+    rdfs:label "annotation_id" ;
+    rdfs:comment "Identifier for the annotation." ;
+    rdfs:domain rembi:FileLevelMetadata ;
     rdfs:range  xsd:string .
 
-# ImageCorrelation.transformation_matrix
-rembi:transformation_matrix
-    a           owl:DatatypeProperty ;
-    rdfs:label  "transformation matrix" ;
+rembi:source_image_id a owl:DatatypeProperty ;
+    rdfs:label "source_image_id" ;
+    rdfs:comment "Identifier of the source image file." ;
+    rdfs:domain rembi:FileLevelMetadata ;
     rdfs:range  xsd:string .
 
-# ImageAnalysis.analysis_overview
-rembi:analysis_overview
-    a           owl:DatatypeProperty ;
-    rdfs:label  "analysis overview" ;
+rembi:transformations a owl:DatatypeProperty ;
+    rdfs:label "transformations" ;
+    rdfs:comment "Transformations applied to the image." ;
+    rdfs:domain rembi:FileLevelMetadata ;
     rdfs:range  xsd:string .
 
-# Annotations.annotation_overview
-rembi:annotation_overview
-    a           owl:DatatypeProperty ;
-    rdfs:label  "annotation overview" ;
+rembi:spatial_information a owl:DatatypeProperty ;
+    rdfs:label "spatial_information" ;
+    rdfs:comment "Spatial metadata for the annotation." ;
+    rdfs:domain rembi:FileLevelMetadata ;
     rdfs:range  xsd:string .
 
-# Annotations.annotation_method
-rembi:annotation_method
-    a           owl:DatatypeProperty ;
-    rdfs:label  "annotation method" ;
-    rdfs:range  xsd:string .
-
-# Annotations.annotation_criteria
-rembi:annotation_criteria
-    a           owl:DatatypeProperty ;
-    rdfs:label  "annotation criteria" ;
-    rdfs:range  xsd:string .
-
-# Annotations.annotation_coverage
-rembi:annotation_coverage
-    a           owl:DatatypeProperty ;
-    rdfs:label  "annotation coverage" ;
-    rdfs:range  xsd:string .
-
-# Annotations.annotation_confidence_level
-rembi:annotation_confidence_level
-    a           owl:DatatypeProperty ;
-    rdfs:label  "annotation confidence level" ;
-    rdfs:range  xsd:string .
-
-# FileLevelMetadata.annotation_id
-rembi:annotation_id
-    a           owl:DatatypeProperty ;
-    rdfs:label  "annotation id" ;
-    rdfs:range  xsd:string .
-
-# FileLevelMetadata.source_image_id
-rembi:source_image_id
-    a           owl:DatatypeProperty ;
-    rdfs:label  "source image id" ;
-    rdfs:range  xsd:string .
-
-# FileLevelMetadata.transformations
-rembi:transformations
-    a           owl:DatatypeProperty ;
-    rdfs:label  "transformations" ;
-    rdfs:range  xsd:string .
-
-# FileLevelMetadata.spatial_information
-rembi:spatial_information
-    a           owl:DatatypeProperty ;
-    rdfs:label  "spatial information" ;
-    rdfs:range  xsd:string .
-
-# FileLevelMetadata.annotation_creation_time
-rembi:annotation_creation_time
-    a           owl:DatatypeProperty ;
-    rdfs:label  "annotation creation time" ;
+rembi:annotation_creation_time a owl:DatatypeProperty ;
+    rdfs:label "annotation_creation_time" ;
+    rdfs:comment "Timestamp when the annotation was created." ;
+    rdfs:domain rembi:FileLevelMetadata ;
     rdfs:range  xsd:dateTime .
