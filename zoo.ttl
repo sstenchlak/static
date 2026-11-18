@@ -1,0 +1,89 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix zoo:  <http://example.org/zoo/schema#> .
+
+# ==========================================
+# 1. Classes and Generalizations (Hierarchy)
+# ==========================================
+
+# Base Classes
+zoo:Animal a rdfs:Class ;
+    rdfs:label "Animal" ;
+    rdfs:comment "A living creature kept in the zoo." .
+
+zoo:Enclosure a rdfs:Class ;
+    rdfs:label "Enclosure" ;
+    rdfs:comment "A designated physical habitat for animals." .
+
+zoo:Employee a rdfs:Class ;
+    rdfs:label "Employee" ;
+    rdfs:comment "A person working at the zoo." .
+
+# Generalizations (Subclasses)
+zoo:Mammal a rdfs:Class ;
+    rdfs:subClassOf zoo:Animal ;
+    rdfs:label "Mammal" .
+
+zoo:Reptile a rdfs:Class ;
+    rdfs:subClassOf zoo:Animal ;
+    rdfs:label "Reptile" .
+
+zoo:Zookeeper a rdfs:Class ;
+    rdfs:subClassOf zoo:Employee ;
+    rdfs:label "Zookeeper" ;
+    rdfs:comment "An employee who feeds and cares for animals." .
+
+zoo:Veterinarian a rdfs:Class ;
+    rdfs:subClassOf zoo:Employee ;
+    rdfs:label "Veterinarian" ;
+    rdfs:comment "An employee who provides medical care." .
+
+# ==========================================
+# 2. Properties (Attributes)
+# ==========================================
+
+zoo:hasName a rdf:Property ;
+    rdfs:label "has name" ;
+    rdfs:domain zoo:Animal ;
+    rdfs:range xsd:string .
+
+zoo:speciesName a rdf:Property ;
+    rdfs:label "species name" ;
+    rdfs:domain zoo:Animal ;
+    rdfs:range xsd:string .
+
+# ==========================================
+# 3. Relations (Object Properties)
+# ==========================================
+
+zoo:livesIn a rdf:Property ;
+    rdfs:label "lives in" ;
+    rdfs:domain zoo:Animal ;
+    rdfs:range zoo:Enclosure ;
+    rdfs:comment "Relates an animal to its physical habitat." .
+
+zoo:caresFor a rdf:Property ;
+    rdfs:label "cares for" ;
+    rdfs:domain zoo:Zookeeper ;
+    rdfs:range zoo:Animal .
+
+zoo:treats a rdf:Property ;
+    rdfs:label "treats medically" ;
+    rdfs:domain zoo:Veterinarian ;
+    rdfs:range zoo:Animal .
+
+# ==========================================
+# 4. Example Instances (Data)
+# ==========================================
+
+zoo:SavannaZone a zoo:Enclosure ;
+    rdfs:label "African Savanna Exhibit" .
+
+zoo:Leo a zoo:Mammal ;
+    zoo:hasName "Leo" ;
+    zoo:speciesName "Panthera leo" ;
+    zoo:livesIn zoo:SavannaZone .
+
+zoo:Alice a zoo:Zookeeper ;
+    zoo:caresFor zoo:Leo .
